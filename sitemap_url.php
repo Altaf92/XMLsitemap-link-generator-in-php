@@ -6,64 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sitemap</title>
     <link rel="stylesheet" href="styles.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
 <body>
-    <?php
+
+   <div class="container mt-5 pt-5">
+    <div class="row justify-content-center">
+        <div class="col-8">
+        <form action="result.php" method="post">
+        <div class="mb-3">
+            <label class="form-label">Enter Website Link</label>
+            <input type="text" name="link" class="form-control" require placeholder="Enter website link to genetate sitemap links">
+        </div>
+
+        <button type="submit" name="submit" class="btn btn-primary w-100">Submit</button>
+
+    </form>
+        </div>
+    </div>
+   </div>
 
 
-// Load the HTML content from a URL or a local file
-$htmlContent = file_get_contents('https://www.xebecmarine.com//'); // Replace with your URL or local file path
-
-// Create a new DOMDocument instance
-$dom = new DOMDocument();
-
-// Suppress errors due to malformed HTML by using '@'
-libxml_use_internal_errors(true);
-
-// Load the HTML content into the DOMDocument
-$dom->loadHTML($htmlContent);
-
-// Clear any errors
-libxml_clear_errors();
-
-// Create a DOMXPath instance to query the DOM
-$xpath = new DOMXPath($dom);
-
-// Find all anchor tags <a> in the HTML
-$links = $xpath->query('//a');
-
-// Initialize an array to store the href values
-$hrefs = [];
-
-// Loop through each link and extract the href attribute
-foreach ($links as $link) {
-    // Make sure $link is an instance of DOMElement
-    if ($link instanceof DOMElement) {
-        $href = $link->getAttribute('href');
-        
-        // Check if the link is absolute
-        if (!preg_match('/^http/', $href)) {
-            // If the link is relative, convert it to an absolute URL
-            $baseUrl = 'https://www.xebecmarine.com//'; // Base URL of the website
-            $href = rtrim($baseUrl, '/') . '/' . ltrim($href, '/');
-        }
-        
-        $hrefs[] = $href;
-    }
-}
-
-// Output the list of links in XML-like format
-foreach ($hrefs as $href) {
-    echo '&lt;url&gt;<br>';
-    echo '&lt;loc&gt;' . htmlspecialchars($href) . '&lt;/loc&gt;<br>';
-    echo '&lt;lastmod&gt;2024-09-16T17:48:56+00:00&lt;/lastmod&gt;<br>';
-    echo '&lt;priority&gt;0.80&lt;/priority&gt;<br>';
-    echo '&lt;/url&gt;<br><br>';
-}
-
-?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </body>
 
